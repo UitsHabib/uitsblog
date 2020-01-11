@@ -25,8 +25,10 @@ app.use(session({
 
 //app.use(require('./routes/pages'));
 //app.use(require('./routes/admin'));
-const router = require('./routes/userRouter')
-app.use('/', router)
+const user = require('./routes/UserRouter')
+const blog = require('./routes/blogRouter')
+app.use('/', user)
+app.use('/', blog)
 
 app.listen(port, function () {
     console.log(`Server running on port: ${port}`);

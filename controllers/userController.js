@@ -106,7 +106,7 @@ exports.login = function(req,res){
   else{
     let user = new User(req.body)
     user.login().then(function(result){
-      req.session.user = {username: user.data.username}
+      req.session.user = {username: req.body.email}
       res.redirect('/home')
     }).catch(function(e){
       console.log(e)
@@ -116,7 +116,8 @@ exports.login = function(req,res){
 
 exports.home = function(req,res){
   if(req.session.user){
-    res.render('home')
+    console.log(req.session.user.username)
+    res.render('home', {user_name: req.session.user.username})
   }
   else{
     res.redirect('/')
@@ -132,7 +133,7 @@ exports.logout = function(req, res) {
 
 exports.isValidUserName = function(req,res){
   if(req.session.user){
-    res.render('home')
+    res.render('home', {user_name: req.session.user.username})
   }
   else{
     let user = new User(req.body)
@@ -147,7 +148,7 @@ exports.isValidUserName = function(req,res){
 
 exports.isValidEmail= function(req,res){
   if(req.session.user){
-    res.render('home')
+    res.render('home', {user_name: req.session.user.username})
   }
   else{
     let user = new User(req.body)
@@ -157,5 +158,14 @@ exports.isValidEmail= function(req,res){
       res.send("bad")
       console.log(e)
     })
+  }
+}
+
+exports.profilePage = function(req,res){
+  if(req.session.user){
+    res.render('profile', {user_name: req.session.user.username})
+  }
+  else{
+    res.redirect('/')
   }
 }

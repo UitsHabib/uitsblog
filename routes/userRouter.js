@@ -26,7 +26,9 @@ router.get('/login', userController.loginPage)
 router.post('/login', userController.login)
 router.get('/home', userController.home)
 router.get('/log-out', userController.logout)
+router.get('/profile/:name', userController.profilePage)
 
 router.post('/unique-username', userController.isValidUserName)
 router.post('/unique-email', userController.isValidEmail)
+
 module.exports = router
